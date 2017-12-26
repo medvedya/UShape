@@ -26,9 +26,14 @@ namespace UShape.PolyGeneration.CircleCorner.ByRect.UIComponents
             return true;
         }
         [ContextMenu("Four corner shape")]
-        public void ResetTo4CornersHorizontal()
+        public void ResetTo4CornersShape()
         {
             sideCornerListProvider.ResetTo4CornersHorizontal(60, 20);
+        }
+        [ContextMenu("Two corner shape")]
+        public void ResetTo2CornerHorizontalShape()
+        {
+            sideCornerListProvider.ResetTo2CornersHorizontal(60);
         }
     }
 

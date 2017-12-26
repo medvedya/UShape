@@ -83,7 +83,7 @@ namespace UShape.PolyGeneration.CircleCorner.ByRect
                         offset = new Vector2(0, -1f)
                     },
                     mode = SideMode.Flat,
-                    segmentCount = circleSegmentCount
+                    segmentCount = 30
                 }
 
             });

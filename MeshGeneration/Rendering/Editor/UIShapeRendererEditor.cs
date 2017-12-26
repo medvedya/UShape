@@ -34,11 +34,13 @@ namespace UShape.MeshGeneration.Rendering
                 Undo.RecordObject(target, "change nodeSet");
             }
             serializedObject.ApplyModifiedProperties();
+            renderer.SetMeshAsDirty();
             renderer.SetAllDirty();
         }
         private void OnSceneGUI()
         {
             renderer.SetMeshAsDirty();
+            renderer.SetAllDirty();
         }
     }
 }
