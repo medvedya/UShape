@@ -1,8 +1,11 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEditorInternal;
+using UShape.Libs;
+
 namespace UShape.MeshGeneration
 {
     public class MGNodeSetEditor
@@ -41,7 +44,32 @@ namespace UShape.MeshGeneration
                 {
                     rect.x += 10;
                     rect.width -= 10;
-                    EditorGUI.PropertyField(rect, nodeSetProperty, false);
+                    EditorGUI.PropertyField(new Rect(rect.x,rect.y,rect.width / 2f,rect.height), nodeSetProperty, false);
+
+                    float bw = rect.width / 2f / 3f;
+                    float bx = rect.x + rect.width / 2f;
+                    const string mgNodeSetBufferPrefix = "MGNodeSetBuffer";
+                    if (!string.IsNullOrEmpty(EditorGUIUtility.systemCopyBuffer) && EditorGUIUtility.systemCopyBuffer.IndexOf(mgNodeSetBufferPrefix) == 0 && GUI.Button(new Rect(bx, rect.y, bw, rect.height), "Paste"))
+                    {
+
+                        Undo.RecordObject(nodeSetProperty.serializedObject.targetObject, "Paste");
+                        var tmpBuffer = new MGNodeSet();
+                        EditorJsonUtility.FromJsonOverwrite(EditorGUIUtility.systemCopyBuffer.Substring(mgNodeSetBufferPrefix.Length),tmpBuffer);
+                        tmpBuffer.CopyTo(nodeSet);
+                    }
+                    bx += bw;
+                    if (GUI.Button(new Rect(bx, rect.y, bw, rect.height), "Copy"))
+                    {
+                        EditorGUIUtility.systemCopyBuffer = mgNodeSetBufferPrefix + EditorJsonUtility.ToJson(nodeSet);
+                    }
+                    bx += bw;
+                    if (GUI.Button(new Rect(bx,rect.y,bw,rect.height),"Clear"))
+                    {
+                        Undo.RecordObject(nodeSetProperty.serializedObject.targetObject, "Clear");
+                        nodeSet.Clear();
+                    }
+
+
                 }
             };
 
@@ -172,3 +200,4 @@ namespace UShape.MeshGeneration
         }
     }
 }
+#endif

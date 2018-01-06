@@ -22,6 +22,7 @@ namespace UShape.MeshGeneration
                 get;
             }
             public abstract int Count { get; }
+            public abstract void CopyTo(NodeCollection target);
         }
         public abstract class NodeCollection<T> : NodeCollection where T : IMGNode, new()
         {
@@ -60,6 +61,12 @@ namespace UShape.MeshGeneration
                 {
                     return nodes.Count;
                 }
+            }
+            public override void CopyTo(NodeCollection target)
+            {
+                var _target = target as NodeCollection<T>;
+                _target.nodes.Clear();
+                _target.nodes.AddRange(nodes);
             }
 
         }
@@ -101,6 +108,12 @@ namespace UShape.MeshGeneration
                     return nodes.Count;
                 }
             }
+            public override void CopyTo(NodeCollection target)
+            {
+                var _target = target as NodeCollectionForUniversalEdge;
+                _target.nodes.Clear();
+                _target.nodes.AddRange(nodes);
+            }
 
         }
 
@@ -134,6 +147,17 @@ namespace UShape.MeshGeneration
             var i = ncol.Add();
             map.Add(new MapPare() { refIndex = i, typeCode = typeCode, enabled = true });
         }
+        public void CopyTo(MGNodeSet target)
+        {
+            FillnodeTypeCollectionMap();
+            target.FillnodeTypeCollectionMap();
+            foreach (var item in nodeTypeCollectionMap)
+            {
+                item.Value.CopyTo(target.nodeTypeCollectionMap[item.Key]);
+            }
+            target.map.Clear();
+            target.map.AddRange(map);
+        }
         public void Remove(int index)
         {
             var refNode = map[index];
@@ -151,6 +175,14 @@ namespace UShape.MeshGeneration
             if (refNode.refIndex < nc.Count)
             {
                 nc.Remove(refNode.refIndex);
+            }
+        }
+        public void Clear()
+        {
+            var c = map.Count;
+            for (int i = 0; i < c; i++)
+            {
+                Remove(0);
             }
         }
 
