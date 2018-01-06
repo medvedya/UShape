@@ -5,7 +5,7 @@ using System.Text;
 using UnityEngine;
 namespace UShape.MeshGeneration.Nodes
 {
-    public class MGNodeSetComponent : MonoBehaviour,IMGNode
+    public class MGNodeSetComponent : MonoBehaviour, IMGNode
     {
         public MGNodeSet nodeSet = new MGNodeSet();
         public void Do(MeshGenerationContext context)

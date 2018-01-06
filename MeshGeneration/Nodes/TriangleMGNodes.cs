@@ -17,7 +17,7 @@
 
                 for (int i = 0; i < trises.Count; i++)
                 {
-                    mesh.trises.Add(trises[i] + start);
+                    mesh.triangles.Add(trises[i] + start);
                 }
             }
         }

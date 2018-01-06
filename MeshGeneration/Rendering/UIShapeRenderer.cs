@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UShape.Libs;
 namespace UShape.MeshGeneration.Rendering
 {
-    [System.Serializable]
+
     [ExecuteInEditMode]
     public class UIShapeRenderer : MaskableGraphic, IMGNode
     {
@@ -86,9 +86,9 @@ namespace UShape.MeshGeneration.Rendering
             {
                 vh.AddVert(mesh.vertexes[i], mesh.GetColor(i), mesh.GetUV(i));
             }
-            for (int i = 0; i < mesh.trises.Count; i += 3)
+            for (int i = 0; i < mesh.triangles.Count; i += 3)
             {
-                vh.AddTriangle(mesh.trises[i], mesh.trises[i + 1], mesh.trises[i + 2]);
+                vh.AddTriangle(mesh.triangles[i], mesh.triangles[i + 1], mesh.triangles[i + 2]);
             }
         }
 

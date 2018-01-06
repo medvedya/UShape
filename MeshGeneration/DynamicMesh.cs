@@ -6,9 +6,9 @@ namespace UShape.MeshGeneration
     {
         public Color32 defaultColor = new Color32(0, 0, 0, 0);
         public List<Vector3> vertexes = new List<Vector3>();
-        public List<int> trises = new List<int>();
+        public List<int> triangles = new List<int>();
         public List<Vector2> uv = new List<Vector2>();
-        public List<Color32> colores = new List<Color32>();
+        public List<Color32> colors = new List<Color32>();
         public int Count
         {
             get
@@ -20,18 +20,18 @@ namespace UShape.MeshGeneration
         public void Clear()
         {
             vertexes.Clear();
-            trises.Clear();
+            triangles.Clear();
             uv.Clear();
-            colores.Clear();
+            colors.Clear();
         }
         public void AddVertex(Vector3 vertexPosition)
         {
             vertexes.Add(vertexPosition);
-            colores.Add(defaultColor);
+            colors.Add(defaultColor);
         }
         public void AddTrisIndex(int vertexIndex)
         {
-            trises.Add(vertexIndex);
+            triangles.Add(vertexIndex);
         }
         public void AddTris(int index1, int index2, int index3)
         {
@@ -42,25 +42,25 @@ namespace UShape.MeshGeneration
         public void SetColor(int index, Color color)
         {
 
-            if (index < colores.Count)
+            if (index < colors.Count)
             {
-                colores[index] = color;
+                colors[index] = color;
             }
             else
             {
-                while (index > (colores.Count))
+                while (index > (colors.Count))
                 {
-                    colores.Add(defaultColor);
+                    colors.Add(defaultColor);
                 }
-                colores.Add(color);
+                colors.Add(color);
             }
 
         }
         public Color32 GetColor(int index)
         {
-            if (index < colores.Count)
+            if (index < colors.Count)
             {
-                return colores[index];
+                return colors[index];
             }
             return defaultColor;
         }

@@ -10,19 +10,15 @@ namespace UShape.MeshGeneration.Nodes
     public class MGNodeSetComponentEditor:Editor
     {
         MGNodeSetEditor nodeSetEditor;
-        MGNodeSet nodeSet;
         protected void OnEnable()
         {
-            nodeSet = (serializedObject.targetObject as MGNodeSetComponent).nodeSet;
-            nodeSetEditor = new MGNodeSetEditor(serializedObject.FindProperty("nodeSet"), nodeSet);
+            nodeSetEditor = new MGNodeSetEditor(serializedObject.FindProperty("nodeSet"), (serializedObject.targetObject as MGNodeSetComponent).nodeSet);
         }
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
             nodeSetEditor.DoLayout();
             serializedObject.ApplyModifiedProperties();
-
-
         }
 
     }
